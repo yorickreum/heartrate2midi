@@ -1,3 +1,5 @@
+# Build with  pyinstaller -F Heartrate2Midi.py
+
 import asyncio
 import math
 
@@ -10,9 +12,9 @@ from bleak import BleakClient, BleakError
 
 from utils import query_yes_no
 
-# address = "A0:9E:1A:71:96:37"
-# address = "21:C4:9A:2A"
-address = "31ac55d6-a113-46cf-9274-e09de1885289"
+# address = "A0:9E:1A:71:96:37" --> Where do I find this address?
+# address = "31ac55d6-a113-46cf-9274-e09de1885289"  # yorick
+address = "3068ac7d-b56f-4b1f-ab66-f6d38963649d"  # sophie
 model_uid = "00002a24-0000-1000-8000-00805f9b34fb"
 battery_uid = "00002a19-0000-1000-8000-00805f9b34fb"
 heartbeat_uid = "00002a37-0000-1000-8000-00805f9b34fb"
@@ -25,13 +27,14 @@ print("\nCreated Midi port \"Heartrate2MIDI\" to output volume.")
 
 
 def hr2midi(bpm):
-    lt = 20
-    ut = 140
-    p = 1.4
-    epsilon = .01
-    normalized_midi = 0
-    if lt < bpm < ut:
-        normalized_midi = ((bpm - lt) / (ut - lt)) ** p * math.exp(-epsilon * (bpm - ut) ** (-2))
+    mu = 120
+    sigma = 35
+    s = .5
+    ut = 170
+    normalized_midi = \
+        ((ut - s * mu) / ut) * math.exp(-((bpm - mu) / sigma) ** 2) + s * bpm / ut
+    if bpm > mu:
+        normalized_midi = math.exp(-((bpm - mu) / sigma) ** 2)
     return int(normalized_midi * 127)
 
 
@@ -75,9 +78,3 @@ async def run(midiout):
 
 asyncio.run(run(midiout))  # event based
 # del midiout
-
-# threading.Thread(target=asyncio.run, args=(run(address),)).start()  # mix of paradigms: event loop in background
-# input()
-# running = False
-
-# Build with  pyinstaller -F Heartrate2Midi.py
