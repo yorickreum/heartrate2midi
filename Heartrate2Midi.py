@@ -1,6 +1,5 @@
 import asyncio
 import math
-import threading
 
 import rtmidi
 from bleak import BleakClient, BleakError
@@ -9,9 +8,10 @@ from bleak import BleakClient, BleakError
 # import pdb
 # pdb.set_trace()
 
-# address = "A0:9E:1A:71:96:37"
 from utils import query_yes_no
 
+# address = "A0:9E:1A:71:96:37"
+# address = "21:C4:9A:2A"
 address = "31ac55d6-a113-46cf-9274-e09de1885289"
 model_uid = "00002a24-0000-1000-8000-00805f9b34fb"
 battery_uid = "00002a19-0000-1000-8000-00805f9b34fb"
