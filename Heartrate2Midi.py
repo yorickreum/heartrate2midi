@@ -14,7 +14,8 @@ from utils import query_yes_no
 
 # address = "A0:9E:1A:71:96:37" --> Where do I find this address?
 # address = "31ac55d6-a113-46cf-9274-e09de1885289"  # yorick
-address = "3068ac7d-b56f-4b1f-ab66-f6d38963649d"  # sophie
+# address = "3068ac7d-b56f-4b1f-ab66-f6d38963649d"  # sophie
+address = "a471f15e-50e3-41bc-979f-bd8920066a54"  # sophie 2
 model_uid = "00002a24-0000-1000-8000-00805f9b34fb"
 battery_uid = "00002a19-0000-1000-8000-00805f9b34fb"
 heartbeat_uid = "00002a37-0000-1000-8000-00805f9b34fb"
